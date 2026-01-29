@@ -1,0 +1,14 @@
+-- источник - https://forum.infostart.ru/forum9/topic183950/
+CREATE FUNCTION [dbo].[GetGUID] (@IDRRef binary(16))
+RETURNS nchar(36)
+BEGIN
+declare @IDRRef_String nchar(32);
+SET @IDRRef_String = substring(sys.fn_sqlvarbasetostr(@IDRRef),3,32);
+RETURN(
+  substring(@IDRRef_String,25,8) + '-' +
+  substring(@IDRRef_String,21,4) + '-' +
+  substring(@IDRRef_String,17,4) + '-' +
+  substring(@IDRRef_String,1,4) + '-' +
+  substring(@IDRRef_String,5,12)
+  );
+END;
